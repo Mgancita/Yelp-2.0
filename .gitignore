@@ -1,6 +1,0 @@
-
-*.log
-
-webdriver/geckodriver
-
-*.csv

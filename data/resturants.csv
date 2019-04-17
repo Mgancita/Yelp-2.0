@@ -1,0 +1,19 @@
+,resturant_id,resturant,resturant_rating,cuisine,resturant_review_count
+0,la-isla-restaurant-hoboken,La Isla Restaurant,4.0,['Cuban'],834
+0,mamouns-falafel-restaurant-hoboken,Mamoun’s Falafel Restaurant,4.0,"['Middle Eastern', 'Falafel']",698
+0,the-cuban-restaurant-and-bar-hoboken-2,The Cuban Restaurant and Bar,4.0,"['Cuban', 'Bars', 'Latin American']",928
+0,fiore-deli-of-hoboken-hoboken,Fiore Deli of Hoboken,4.5,"['Delis', 'Italian']",485
+0,bw%C3%A8-kafe-hoboken,bwè kafe,4.5,"['Cafes', 'Coffee & Tea']",242
+0,karma-kafe-hoboken,Karma Kafe,4.0,['Indian'],565
+0,m-and-p-biancamano-hoboken,M & P Biancamano,4.5,"['Grocery', 'Delis']",171
+0,amandas-restaurant-hoboken-2,Amanda’s Restaurant,4.0,"['Breakfast & Brunch', 'American (New)']",537
+0,vitos-italian-deli-hoboken,Vito’s Italian Deli,4.5,['Delis'],267
+0,anthony-davids-hoboken,Anthony David’s,4.0,"['Breakfast & Brunch', 'American (New)', 'Italian']",593
+0,tutta-pesca-hoboken,Tutta Pesca,4.5,"['Seafood', 'Seafood Markets', 'Italian']",201
+0,benny-tudinos-pizzeria-hoboken,Benny Tudino’s Pizzeria,3.5,['Pizza'],613
+0,choc-o-pain-hoboken-2,Choc O Pain,4.0,"['Bakeries', 'French', 'Cooking Classes']",304
+0,sweet-hoboken,Sweet,4.0,"['Desserts', 'Bakeries', 'Cupcakes']",221
+0,empire-coffee-and-tea-company-hoboken,Empire Coffee & Tea Company,4.0,['Coffee & Tea'],210
+0,old-german-bakery-hoboken,Old German Bakery,4.0,['Bakeries'],236
+0,satay-malaysian-cuisine-hoboken-2,Satay Malaysian Cuisine,3.5,"['Malaysian', 'Chinese', 'Asian Fusion']",472
+0,elysian-cafe-hoboken,Elysian Cafe,3.5,"['American (New)', 'French', 'Bars']",498

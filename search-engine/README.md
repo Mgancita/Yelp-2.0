@@ -1,9 +1,9 @@
-Search-Engine
-================
+# Search-Engine
+# ================
 This project implements the search engine module for yelp 2.0 project as part of BIA-660 coursework
 
-Pre-requisite steps to setup:
-==============================
+#Pre-requisite steps to setup:
+# ==============================
 1. This project was implemented in below python version.
 $python
 Python 3.7.0 (default, Jun 28 2018, 08:04:48) [MSC v.1912 64 bit (AMD64)] :: Anaconda, Inc. on win32

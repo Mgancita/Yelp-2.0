@@ -6,7 +6,9 @@ CREATE TABLE yelp_resturant(
     resturant_id TEXT NOT NULL PRIMARY KEY,
     name TEXT,
     rating DOUBLE,
-    cuisine TEXT
+    cuisine TEXT,
+    phone TEXT,
+    address TEXT
 );
 
 

@@ -1,0 +1,22 @@
+<dataloadMapper>
+	<table name="yelp_resturant" source="../../../data/resturants.csv" loadOrder="1">
+		<field name="resturant_id" column="resturant_id"/>
+		<field name="resturant" column="name"/>
+		<field name="resturant_rating" column="rating"/>
+		<field name="cuisine" column="cuisine"/>
+	</table>
+	<table name="yelp_user" source="../../../data/users.csv" loadOrder="2">
+		<field name="user_id" column="user_id"/>
+		<field name="name" column="name"/>
+	</table>
+	<table name="yelp_review" source="../../../data/reviews.csv" loadOrder="3">
+		<field name="resturant_id" column="resturant_id"/>
+		<field name="user_id" column="user_id"/>
+		<field name="description" column="description"/>
+		<field name="rating" column="rating"/>
+		<field name="date" column="date"/>
+		<field name="useful" column="useful"/>
+		<field name="funny" column="funny"/>
+		<field name="cool" column="cool"/>
+	</table>
+</dataloadMapper>

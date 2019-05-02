@@ -22,11 +22,18 @@ virtualenv --python=<python_installed_directory>\python.exe venv
 activate venv  
 
 
-6. Install Django  
-pip install Django==2.0.3  
+6. Install packages 
+		Install Django  
+			pip install Django==2.0.3  
 
-7. Install djangorestframework  
-pip install djangorestframework  
+		Install djangorestframework  
+			pip install djangorestframework  
+		
+		Install xmltodict 0.12.0
+			pip install xmltodict
+        
+        Install pandas-0.24.2
+            pip install pandas
 
 8. Create django project.  
 django-admin.py startproject api .  
@@ -40,3 +47,33 @@ python manage.py migrate
 
 11. Execute below command with necessary user name and password  
 python manage.py createsuperuser --email admin@example.com --username admin  
+
+12. Create earch-engine/search/urls.py  
+Add below code snippet  
+from django.urls import path  
+from .views import ListResturantView  
+
+urlpatterns = [  
+    path('resturants/', ListSongsView.as_view(), name="resturant-all")  
+]  
+
+13. Excecute below command.  
+python manage.py makemigrations  
+
+14. Execute below command.  
+python manage.py migrate  
+
+15. Update api/urls.py to include below path in urlpatterns.  
+ re_path('api/(?P<version>(v1|v2))/', include('search.urls'))  
+ 
+16. Execute below command.  
+python manage.py makemigrations  
+
+17. Excecute below command.
+python manage.py migrate
+
+18. Execute below command to test.  
+python manage.py test  
+
+19. Execute below command to start the search server.  
+python manage.py runserver  

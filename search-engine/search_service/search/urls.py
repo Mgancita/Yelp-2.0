@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import ListResturantView
+from . import views 
 
 
 urlpatterns = [
-    path('resturants/', ListResturantView.as_view(), name="resturant-all")
+    path('search/', views.search_index)
 ]
 

@@ -1,0 +1,29 @@
+<dataConfig>
+    <document indexDir="/index_config/data/" name="resturants" sql="
+        select y1.uid,
+        y1.resturant_id,
+        y1.name,
+        y1.rating,
+        y1.cuisine,
+        y1.phone,
+        y1.address,
+        coalesce(yt1.t1_count,0) as t1_count,
+        coalesce(yt2.t2_count,0) as t2_count,
+        coalesce(yt3.t3_count,0) as t3_count
+        FROM yelp_resturant y1
+        LEFT OUTER JOIN (select resturant_id,count(user_id) as t1_count from yelp_review where t1 = 'TRUE' GROUP BY resturant_id) as yt1 ON (yt1.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t2_count from yelp_review where t2 = 'TRUE' GROUP BY resturant_id) as yt2 ON (yt2.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t3_count from yelp_review where t3 = 'TRUE' GROUP BY resturant_id) as yt3 ON (yt3.resturant_id=y1.resturant_id)       
+        ">    
+        <field name="uid" column="uid" stored="true" primary="true"/>
+        <field name="resturant_id" column="resturant_id" stored="true"/>
+		<field name="name" column="name" stored="true" indexed="true" />
+		<field name="rating" column="rating" stored="true"/>
+		<field name="cuisine" column="cuisine" stored="true" indexed="true" mutli-valued="true"/>
+		<field name="phone" column="phone" stored="true"/>
+		<field name="address" column="address" stored="true" indexed="true"/> 
+		<field name="t1_count" column="t1_count" stored="true"/>
+		<field name="t2_count" column="t2_count" stored="true"/>
+		<field name="t3_count" column="t3_count" stored="true"/> 
+    </document>
+</dataConfig>

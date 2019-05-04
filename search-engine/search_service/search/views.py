@@ -1,15 +1,14 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import SearchService
 
-# Create your views here.
-from rest_framework import generics
-from .models import Resturant
-from .serializers import ResturantSerializer
 
-    
 
-class ListResturantView(generics.ListAPIView):
+@api_view(['GET'])
+def search_index(request):
     """
-    Provides a get method handler.
+    search index 
     """
-    queryset = Resturant.objects.all()
-    serializer_class = ResturantSerializer
+    if request.method == 'GET':
+        response = {'docs':[],'facetView':{'Taste':10}}
+        return Response(SearchService.query(request.query_params))

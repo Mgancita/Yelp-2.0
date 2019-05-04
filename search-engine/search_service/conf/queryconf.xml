@@ -1,0 +1,21 @@
+<queryConf>
+    <searchProfile name="search">
+        <query>
+            <field name="name"/>
+            <field name="cuisine"/>
+            <field name="address"/>
+        </query>
+        <display>
+            <field name="name"/>
+            <field name="cuisine"/>
+            <field name="address"/>
+            <field name="uid"/>
+            <field name="resturant_id"/>
+            <field name="rating"/>
+            <field name="phone"/>
+            <field name="t1_count"/>
+            <field name="t2_count"/>
+            <field name="t3_count"/>
+        </display>
+    </searchProfile>
+</queryConf>

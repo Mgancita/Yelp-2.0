@@ -1,3 +1,3 @@
 <dataloadEnv>
-    <datasource type="sqlite3" source="../../search_service/db.sqlite3"/> 
+    <datasource type="sqlite3" source="/search_service/db.sqlite3"/> 
 </dataloadEnv>

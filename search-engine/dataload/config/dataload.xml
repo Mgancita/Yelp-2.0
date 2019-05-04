@@ -1,5 +1,5 @@
 <dataloadMapper>
-	<table name="yelp_resturant" source="../../../data/resturants.csv" loadOrder="1">
+	<table name="yelp_resturant" source="/../data/resturants.csv" loadOrder="1">
 		<field name="resturant_id" column="resturant_id"/>
 		<field name="resturant" column="name"/>
 		<field name="resturant_rating" column="rating"/>
@@ -7,11 +7,11 @@
 		<field name="phone" column="phone"/>
 		<field name="address" column="address"/>
 	</table>
-	<table name="yelp_user" source="../../../data/users.csv" loadOrder="2">
+	<table name="yelp_user" source="/../data/users.csv" loadOrder="2">
 		<field name="user_id" column="user_id"/>
 		<field name="name" column="name"/>
 	</table>
-	<table name="yelp_review" source="../../../data/reviews.csv" loadOrder="3">
+	<table name="yelp_review" source="/../data/reviews_ts2.csv" loadOrder="3">
 		<field name="resturant_id" column="resturant_id"/>
 		<field name="user_id" column="user_id"/>
 		<field name="description" column="description"/>
@@ -20,5 +20,11 @@
 		<field name="useful" column="useful"/>
 		<field name="funny" column="funny"/>
 		<field name="cool" column="cool"/>
+		<topicField name="topic_senti">
+    		<topic name="Environment" column="t1"/>
+    		<topic name="Customer Service" column="t2"/>
+    		<topic name="Timely" column="t3"/>
+		</topicField>
 	</table>
 </dataloadMapper>
+

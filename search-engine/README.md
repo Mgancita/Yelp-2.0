@@ -34,6 +34,9 @@ activate venv
         
         Install pandas-0.24.2
             pip install pandas
+        
+        Install nltk-3.4.1
+            pip install nltk
 
 8. Create django project.  
 django-admin.py startproject api .  

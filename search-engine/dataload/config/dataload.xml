@@ -6,12 +6,13 @@
 		<field name="cuisine" column="cuisine"/>
 		<field name="phone" column="phone"/>
 		<field name="address" column="address"/>
+		<field name="photo" column="image"/>
 	</table>
 	<table name="yelp_user" source="/../data/users.csv" loadOrder="2">
 		<field name="user_id" column="user_id"/>
 		<field name="name" column="name"/>
 	</table>
-	<table name="yelp_review" source="/../data/reviews_ts2.csv" loadOrder="3">
+	<table name="yelp_review" source="/../data/reviews_topics_polarity.csv" loadOrder="3">
 		<field name="resturant_id" column="resturant_id"/>
 		<field name="user_id" column="user_id"/>
 		<field name="description" column="description"/>
@@ -21,9 +22,13 @@
 		<field name="funny" column="funny"/>
 		<field name="cool" column="cool"/>
 		<topicField name="topic_senti">
-    		<topic name="Environment" column="t1"/>
+    		<topic name="Bar/Drinks" column="t1"/>
     		<topic name="Customer Service" column="t2"/>
     		<topic name="Timely" column="t3"/>
+    		<topic name="Environment/Stay" column="t4"/>
+    		<topic name="Location" column="t5"/>
+    		<topic name="Food" column="t6"/>
+    		<topic name="Variety/Order Selection" column="t7"/>
 		</topicField>
 	</table>
 </dataloadMapper>

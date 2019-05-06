@@ -61,18 +61,40 @@ class SearchService:
         self.totalCount = 0
         self.pageSize = 10
         self.pageNum = 1
-        self.facetView = {}
+        self.facetView = []
         self.fq=None
         self.documentList = []  
         self.query=None
+    
+    def populate_facetView(self,idx_list):
+        documentList = [dataRepo.documents[idx] for idx in idx_list]
+        facetView = []
+        topicKey_count={}
+        for doc in documentList:
+            if 'topic' in doc:
+                topics=doc['topic']
+                for topic in topics:
+                    if topic['name'] in topicKey_count:
+                        topicKey_count[topic['name']]=topicKey_count[topic['name']]+1;
+                    else:
+                        topicKey_count[topic['name']]=1
         
+
+        for topic_name,count in topicKey_count.items():
+            facet={}
+            facet['name']=topic_name
+            facet['count']=count
+            facetView.append(facet)
+        
+        self.facetView=facetView
+                        
     
     def response(self):
         response={}
         response['totalCount'] = self.totalCount
         response['pageNum'] = self.pageNum
         response['pageSize'] = self.pageSize
-        response['facetView'] = self.facetView
+        response['topicFilter'] = self.facetView
         response['docs'] = self.documentList
         return response
         
@@ -131,6 +153,8 @@ class SearchService:
         #intersect documents to match all terms
         if len(idx_aggregate_list) > 0:
             reduced_idx_list=reduce(np.intersect1d,(idx_aggregate_list))
+            #populate the facetView
+            self.populate_facetView(reduced_idx_list)
             #paginate documents based on pageSize and pageNum
             begin_index=(self.pageNum-1)*(self.pageSize)
             end_index=begin_index + self.pageSize

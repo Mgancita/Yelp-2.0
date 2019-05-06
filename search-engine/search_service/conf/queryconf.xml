@@ -13,9 +13,14 @@
             <field name="resturant_id"/>
             <field name="rating"/>
             <field name="phone"/>
+            <field name="image"/>
             <field name="t1_count"/>
             <field name="t2_count"/>
             <field name="t3_count"/>
+            <field name="t4_count"/>
+            <field name="t5_count"/>
+            <field name="t6_count"/>
+            <field name="t7_count"/>
         </display>
     </searchProfile>
 </queryConf>

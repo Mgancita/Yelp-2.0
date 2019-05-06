@@ -45,6 +45,9 @@ django-admin.py startproject api .
 9. Create django app  
 django-admin.py startapp search  
 
+django-admin.py startapp webapp
+
+
 10. Sync database for the first time and create an initial user and set password for that user  
 python manage.py migrate  
 

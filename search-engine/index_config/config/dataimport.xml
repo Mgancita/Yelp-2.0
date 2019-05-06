@@ -7,23 +7,37 @@
         y1.cuisine,
         y1.phone,
         y1.address,
+        y1.image,
         coalesce(yt1.t1_count,0) as t1_count,
         coalesce(yt2.t2_count,0) as t2_count,
-        coalesce(yt3.t3_count,0) as t3_count
+        coalesce(yt3.t3_count,0) as t3_count,
+        coalesce(yt4.t4_count,0) as t4_count,
+        coalesce(yt5.t5_count,0) as t5_count,
+        coalesce(yt6.t6_count,0) as t6_count,
+        coalesce(yt7.t7_count,0) as t7_count
         FROM yelp_resturant y1
-        LEFT OUTER JOIN (select resturant_id,count(user_id) as t1_count from yelp_review where t1 = 'TRUE' GROUP BY resturant_id) as yt1 ON (yt1.resturant_id=y1.resturant_id)
-		LEFT OUTER JOIN (select resturant_id,count(user_id) as t2_count from yelp_review where t2 = 'TRUE' GROUP BY resturant_id) as yt2 ON (yt2.resturant_id=y1.resturant_id)
-		LEFT OUTER JOIN (select resturant_id,count(user_id) as t3_count from yelp_review where t3 = 'TRUE' GROUP BY resturant_id) as yt3 ON (yt3.resturant_id=y1.resturant_id)       
+        LEFT OUTER JOIN (select resturant_id,count(user_id) as t1_count from yelp_review where t1 = 1 GROUP BY resturant_id) as yt1 ON (yt1.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t2_count from yelp_review where t2 = 1 GROUP BY resturant_id) as yt2 ON (yt2.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t3_count from yelp_review where t3 = 1 GROUP BY resturant_id) as yt3 ON (yt3.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t4_count from yelp_review where t4 = 1 GROUP BY resturant_id) as yt4 ON (yt4.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t5_count from yelp_review where t5 = 1 GROUP BY resturant_id) as yt5 ON (yt5.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t6_count from yelp_review where t6 = 1 GROUP BY resturant_id) as yt6 ON (yt6.resturant_id=y1.resturant_id)
+		LEFT OUTER JOIN (select resturant_id,count(user_id) as t7_count from yelp_review where t7 = 1 GROUP BY resturant_id) as yt7 ON (yt7.resturant_id=y1.resturant_id)       
         ">    
         <field name="uid" column="uid" stored="true" primary="true"/>
         <field name="resturant_id" column="resturant_id" stored="true"/>
 		<field name="name" column="name" stored="true" indexed="true" />
+		<field name="image" column="image" stored="true" />
 		<field name="rating" column="rating" stored="true"/>
 		<field name="cuisine" column="cuisine" stored="true" indexed="true" mutli-valued="true"/>
 		<field name="phone" column="phone" stored="true"/>
 		<field name="address" column="address" stored="true" indexed="true"/> 
-		<field name="t1_count" column="t1_count" stored="true"/>
-		<field name="t2_count" column="t2_count" stored="true"/>
-		<field name="t3_count" column="t3_count" stored="true"/> 
+		<field name="t1_count" column="t1_count" group="topic" stored="true" label="Bar/Drinks"/>
+		<field name="t2_count" column="t2_count" group="topic" stored="true" label="Customer Service"/>
+		<field name="t3_count" column="t3_count" group="topic" stored="true" label="Timely"/> 
+		<field name="t4_count" column="t4_count" group="topic" stored="true" label="Environment/Stay" /> 
+		<field name="t5_count" column="t5_count" group="topic" stored="true" label="Location" /> 
+		<field name="t6_count" column="t6_count" group="topic" stored="true" label="Food" /> 
+		<field name="t7_count" column="t7_count" group="topic" stored="true" label="Variety/Order Selection" /> 
     </document>
 </dataConfig>

@@ -1,0 +1,19 @@
+{% load m_tag %}
+<div class="container">
+  <table class="table table-hover">
+      <thead class="thead-dark">
+          <tr>
+              <th>Review Category</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% m_tag "#topicFilter" %}
+          <tr>
+              <td>
+                  {% m_tag "name" %} ({% m_tag "count" %})
+              </td>
+            </tr>
+         {% m_tag "/topicFilter" %}
+      </tbody>
+  </table>
+</div>

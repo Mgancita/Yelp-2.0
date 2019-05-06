@@ -23,6 +23,7 @@ class DataImport:
         self.storedFields=[]
         self.multivalFields=[]
         self.columnTOField={}
+        self.groupFieldLabels={}
         self.indexDir=root_path+doc['@indexDir']
         self.sql=doc['@sql']
         self.primarykey=None
@@ -47,6 +48,15 @@ class DataImport:
             if '@multivalField' in field:
                 if field['@multivalField'] == "true":
                     self.multivalFields.append(field['@name'])
+            
+            if '@group' in field:
+                if field['@group'] not in self.groupFieldLabels:
+                    self.groupFieldLabels[field['@group']]={}
+                
+                self.groupFieldLabels[field['@group']][field['@name']]=field['@label']
+            
+
+            
             
             self.columnTOField[field['@column']] = field['@name']            
         
@@ -100,11 +110,22 @@ class DataImport:
         """Index from config and db"""
         cursor=db.connection.cursor().execute(self.sql)
         documents = {}
-        
         for idx,row in enumerate(cursor):
             document={}
             for key,value in self.columnTOField.items():
                 document[value]=row[key]
+            #map grouped field and label with matching count
+            for g_key,g_value in self.groupFieldLabels.items():
+                
+                group_elements=[]
+                for t_name,t_label in g_value.items():
+                    label_count={}
+                    if document[t_name] > 0:
+                        label_count['name']=t_label
+                        label_count['count']=document[t_name]
+                        group_elements.append(label_count)
+                
+                document[g_key]=group_elements
             #index with primary key
             self.index(document[self.primarykey],document)
             documents[document[self.primarykey]]=document

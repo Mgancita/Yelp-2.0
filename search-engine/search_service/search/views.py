@@ -10,5 +10,4 @@ def search_index(request):
     search index 
     """
     if request.method == 'GET':
-        response = {'docs':[],'facetView':{'Taste':10}}
         return Response(SearchService.query(request.query_params))

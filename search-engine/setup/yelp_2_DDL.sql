@@ -9,7 +9,8 @@ CREATE TABLE yelp_resturant(
     rating DOUBLE,
     cuisine TEXT,
     phone TEXT,
-    address TEXT
+    address TEXT,
+    image TEXT
 );
 
 
@@ -30,6 +31,10 @@ CREATE TABLE yelp_review(
     t1 BOOLEAN,
     t2 BOOLEAN,
     t3 BOOLEAN,
+    t4 BOOLEAN,
+    t5 BOOLEAN,
+    t6 BOOLEAN,
+    t7 BOOLEAN,
     FOREIGN KEY(user_id) REFERENCES yelp_user(user_id) ON DELETE CASCADE,
     FOREIGN KEY(resturant_id) REFERENCES yelp_resturant(resturant_id)  ON DELETE CASCADE
 );

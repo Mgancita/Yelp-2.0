@@ -1,0 +1,23 @@
+<div id="search-listing">
+    {% include "home/components/yelp/home-jumbotron.html" %}
+</div>
+<script id="results-list-template" type="text/template">
+ <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">{% include "home/components/widgets/keyword-search-message.html" %}</div>
+              <div class="col-sm-2"></div>
+         </div> 
+         <div class="row">
+              <div class="col-sm-2">{% include "home/components/widgets/filters.html" %} </div>
+              <div class="col-sm-8">{% include "home/components/widgets/result-list.html" %}</div>
+              <div class="col-sm-2"></div>
+         </div>
+         <div class="row">
+              <div class="col-sm-12"> </div>
+        </div> 
+          <div class="row">
+              <div class="col-sm-4"> </div>
+              <div class="col-sm-8">{% include "home/components/widgets/pagination.html" %}</div>
+              <div class="col-sm-4"></div>
+         </div>
+</script>

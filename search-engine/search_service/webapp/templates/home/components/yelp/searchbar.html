@@ -1,0 +1,46 @@
+<form id="search-form-id" class="mx-2 my-auto d-inline w-50">
+   <div class="input-group">
+      <input id="inputSearchTerm" type="text" class="form-control" placeholder="Search Keyword">
+       <span class="input-group-append">
+       <button id="search-button-id" class="btn btn-outline-secondary" type="button">GO</button>
+       </span>
+    </div>
+</form>
+
+<script type="text/javascript">
+function searchSubmit(){
+    var searchTerm = $('#inputSearchTerm').val();
+        if(searchTerm.trim()){
+            $.getJSON('/api/search/?q='+searchTerm+'&pageSize=10&pageNum=1', function(data) {
+            var template = $('#results-list-template').html();
+            var searchTerm = $('#inputSearchTerm').val();
+            data['searchTerm']=searchTerm;
+            var docs =data.docs;
+            for(var k=0;k< docs.length;k++){
+                var rating = docs[k].rating;
+                var rating_class=['','','','',''];
+                for(var i=0;i<rating;i++){
+                    rating_class[i]='checked';
+                }
+                docs[k].rating_class=rating_class;
+            }
+            console.log(data);
+            var html = Mustache.to_html(template, data);
+                $('#search-listing').html(html);
+            });
+        }
+}
+$( document ).ready(function() {
+    $("#search-button-id").click(function(event) {
+        searchSubmit();
+    });
+});
+$(document).ready(function() {
+    $("#inputSearchTerm").on('keypress',function(event) {
+        if(event.which == 13){
+            searchSubmit();
+            event.preventDefault();
+        }        
+    });
+});
+</script>

@@ -1,6 +1,8 @@
 <form id="search-form-id" class="mx-2 my-auto d-inline w-50">
    <div class="input-group">
       <input id="inputSearchTerm" type="text" class="form-control" placeholder="Search Keyword">
+      <input id="inputPageNumber" type="hidden" value="1">
+      <input id="inputPageSize" type="hidden" value="10">
        <span class="input-group-append">
        <button id="search-button-id" class="btn btn-outline-secondary" type="button">GO</button>
        </span>
@@ -8,10 +10,75 @@
 </form>
 
 <script type="text/javascript">
+function paginate(data){
+//pagination changes
+            var pages=[];
+            var maxDisplay=7;
+            var currentPage = data.pageNum;
+            var totalCount = data.totalCount;
+            var totalPages=((totalCount%10)==0?0:1)+(Math.floor(totalCount/10));
+            
+            var pageObj;
+            
+            
+            var beginNumber=1;
+            var endNumber=totalPages;
+            
+            if(currentPage < maxDisplay-1){
+                beginNumber=1;
+                if(totalPages > maxDisplay-1){
+                    endNumber=maxDisplay-2;
+                }
+                
+            }else{
+                endNumber=currentPage;
+                beginNumber=currentPage-4;
+            }
+            
+            for(var k=beginNumber,counter=1;k<=endNumber;k++,counter++){
+                pageObj={}
+                pageObj.label=k;
+                pageObj.number=k;
+                pageObj.class=(k==currentPage)?"active":"";
+                pages[counter]=pageObj;
+            }
+            
+            if(currentPage < totalPages && totalPages > maxDisplay-1){
+                pageObj={}
+                pageObj.label=">>";
+                pageObj.class="";
+                pages[6]=pageObj;
+                pages[6].number=pages[5].number+1
+                pages[6].class=""
+            }else{
+                 pageObj={}
+                pageObj.label=">>";
+                pageObj.number=pages[pages.length-1].number+1;
+                var pos =pages.length;
+                pages[pos]=pageObj;
+                pages[pos].class="disabled"
+            }
+            if(typeof pages[1] != 'undefined' && pages[1].number >1 ){
+                var pageObj={}
+                pageObj.label="<<";
+                pageObj.class="";
+                pages[0]=pageObj;
+                pages[0].number=pages[1].number-1
+            }else{
+                var pageObj={}
+                pageObj.label="<<";
+                pageObj.class="disabled";
+                pages[0]=pageObj;
+                pages[0].number=pages[1].number-1
+            }
+    return pages;
+
+}
 function searchSubmit(){
     var searchTerm = $('#inputSearchTerm').val();
+    var inputPageNumber = $('#inputPageNumber').val();
         if(searchTerm.trim()){
-            $.getJSON('/api/search/?q='+searchTerm+'&pageSize=10&pageNum=1', function(data) {
+            $.getJSON('/api/search/?q='+searchTerm+'&pageSize=10&pageNum='+inputPageNumber, function(data) {
             var template = $('#results-list-template').html();
             var searchTerm = $('#inputSearchTerm').val();
             data['searchTerm']=searchTerm;
@@ -24,20 +91,40 @@ function searchSubmit(){
                 }
                 docs[k].rating_class=rating_class;
             }
+            
+            var pages=[];
+            if(data.totalCount > 0){
+              pages = paginate(data);          
+            }
+            data.pages=pages;
+            
+            
+            
+            
             console.log(data);
             var html = Mustache.to_html(template, data);
                 $('#search-listing').html(html);
             });
         }
 }
+function pageSelected(pageNumber){
+    $("#inputPageNumber").val(pageNumber);
+    console.log($("#inputPageNumber").val())
+    $("#search-button-id").click();
+    
+}
 $( document ).ready(function() {
     $("#search-button-id").click(function(event) {
+        $("#inputPageNumber").val(1);
+        console.log($("#inputPageNumber").val())
         searchSubmit();
+        event.preventDefault();
     });
 });
 $(document).ready(function() {
     $("#inputSearchTerm").on('keypress',function(event) {
         if(event.which == 13){
+            $("#inputPageNumber").val(1);
             searchSubmit();
             event.preventDefault();
         }        

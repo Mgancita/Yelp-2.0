@@ -1,9 +1,12 @@
+{% load m_tag %}
 <div class="container mt-3">
     <ul class="pagination pagination-lg">
-      <li class="page-item"><a class="page-link" href="#">&lt;&lt;</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">&gt;&gt;</a></li>
+        {% m_tag "#pages"%}
+          <li class="page-item {% m_tag "class"%}">
+          <a class="page-link" onclick="javascript:document.getElementById('inputPageNumber').value={% m_tag "number"%};searchSubmit();" href="#">
+              {% m_tag "label"%}
+          </a>
+          </li>
+         {% m_tag "/pages"%}
     </ul>
 </div>

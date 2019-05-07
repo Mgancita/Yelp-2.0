@@ -37,6 +37,9 @@ activate venv
         
         Install nltk-3.4.1
             pip install nltk
+        
+        Install stemming-1.0.1
+            pip install stemming
 
 8. Create django project.  
 django-admin.py startproject api .  

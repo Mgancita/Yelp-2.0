@@ -31,6 +31,7 @@ function mapTopicAvgPolarity(topic,tAvgPol){
     
 }
 
+
 function paginate(data){
 //pagination changes
             var pages=[];
@@ -98,8 +99,13 @@ function paginate(data){
 function searchSubmit(){
     var searchTerm = $('#inputSearchTerm').val();
     var inputPageNumber = $('#inputPageNumber').val();
+    var topicFilter = $("input[name='topic']:checked").val();
+    var fqString='';
+    if(typeof topicFilter !='undefined' && topicFilter !=''){
+        fqString='&fq=topic:'+topicFilter;
+    }
         if(searchTerm.trim()){
-            $.getJSON('/api/search/?q='+searchTerm+'&pageSize=10&pageNum='+inputPageNumber, function(data) {
+            $.getJSON('/api/search/?q='+searchTerm+'&pageSize=10&pageNum='+inputPageNumber+fqString, function(data) {
             var template = $('#results-list-template').html();
             var searchTerm = $('#inputSearchTerm').val();
             data['searchTerm']=searchTerm;
@@ -122,6 +128,7 @@ function searchSubmit(){
             if(data.totalCount > 0){
               pages = paginate(data);          
             }
+            
             data.pages=pages;
 
             console.log(data);

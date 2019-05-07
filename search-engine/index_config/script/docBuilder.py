@@ -6,6 +6,9 @@ import pickle
 import re
 import ast
 from nltk.corpus import stopwords 
+from nltk.stem import PorterStemmer
+
+ps = PorterStemmer() 
 
 root_path = os.path.dirname(os.path.abspath( __file__ ))+"/../.."
 data_path = root_path+"/index_config/data/"
@@ -79,6 +82,9 @@ class DataImport:
     def filter_stopwords(self,list):
         return [word for word in list if word not in en_stopwords]
     
+    def stem_word_list(self,list):
+        return [ps.stem(word) for word in list]
+    
     #preprocess string to retain only alphanumeric characters
     def preprocess_string(self,string):
         res_string=re.sub('[^a-zA-Z0-9\s+]+','',string)
@@ -90,6 +96,7 @@ class DataImport:
         text = string.split()
         text =[ word.lower() for word in text]
         text = self.filter_stopwords(text)
+        text = self.stem_word_list(text)
         #de-duplicate
         text = list(set(text))
         for word in text:

@@ -7,6 +7,9 @@ from functools import reduce
 import numpy as np
 from nltk.corpus import stopwords 
 from django.conf import settings
+from nltk.stem import PorterStemmer
+
+ps = PorterStemmer() 
 
 query_conf_file=open(os.path.join(settings.BASE_DIR, 'conf/queryconf.xml'))
 root_path = os.path.dirname(settings.BASE_DIR)
@@ -59,21 +62,27 @@ class SearchService:
     
     def __init__(self):
         self.totalCount = 0
+        self.filteredCount=0
         self.pageSize = 10
         self.pageNum = 1
         self.facetView = []
-        self.fq=None
+        self.fq=[]
         self.documentList = []  
+        self.filterdDocList =[]
         self.query=None
     
     def populate_facetView(self,idx_list):
         documentList = [dataRepo.documents[idx] for idx in idx_list]
         facetView = []
         topicKey_count={}
+        filteredDocs=[]
         for doc in documentList:
             if 'topic' in doc:
                 topics=doc['topic']
                 for topic in topics:
+                    #build filtered doc list
+                    if topic['name'] in self.fq:
+                        filteredDocs.append(doc)
                     if topic['name'] in topicKey_count:
                         topicKey_count[topic['name']]=topicKey_count[topic['name']]+1;
                     else:
@@ -84,18 +93,32 @@ class SearchService:
             facet={}
             facet['name']=topic_name
             facet['count']=count
+            if facet['name'] in self.fq:
+                facet['checked']='checked'
+            else:
+                facet['checked']=''
             facetView.append(facet)
         
         self.facetView=facetView
+        #set filtered results
+        if len(filteredDocs) > 0:
+            self.filterdDocList=filteredDocs
+            self.filteredCount=len(filteredDocs)
                         
     
     def response(self):
         response={}
+        if self.filteredCount > 0:
+            self.totalCount=self.filteredCount    
         response['totalCount'] = self.totalCount
         response['pageNum'] = self.pageNum
         response['pageSize'] = self.pageSize
+        response['fq'] = self.fq
         response['topicFilter'] = self.facetView
-        response['docs'] = self.documentList
+        if self.filteredCount > 0:
+            response['docs'] = self.filterdDocList
+        else:
+            response['docs'] = self.documentList
         return response
         
         
@@ -110,7 +133,9 @@ class SearchService:
 
     def filter_stopwords(self,list):
         return [word for word in list if word not in en_stopwords]
-
+    
+    def stem_word_list(self,list):
+        return [ps.stem(word) for word in list]
     
     def preprocess_string(self,string):
         res_string=re.sub('[^a-zA-Z0-9\s+]+','',string)
@@ -176,7 +201,7 @@ class SearchService:
         q=self.preprocess_string(q)
         word_list=self.tokenize(q)
         word_list=self.filter_stopwords(word_list)
-        
+        word_list=self.stem_word_list(word_list)
         return self.query_inverted_index(word_list)
     
     def search_query_fields(self,params):
@@ -200,7 +225,8 @@ class SearchService:
         
         filterQuery='fq'
         if filterQuery in params:
-            self.fq=params[filterQuery]
+            filterParam=params[filterQuery].split(':')
+            self.fq.append(filterParam[1])
             
         return self.query_idx(self.query)
             

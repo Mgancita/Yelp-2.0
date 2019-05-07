@@ -3,7 +3,11 @@
   <div class="media border p-3">
     <img src="{% m_tag "image" %}" alt="{% m_tag "name" %}" class="mr-3 mt-3 rounded align-baseline" style="width:150px;height:150px;">
     <div class="media-body">
-      <h4>{% m_tag "name" %}</h4>
+      <h4>
+          <a style="color:inherit;" href="https://www.yelp.com/biz/{% m_tag "resturant_id" %}">
+              {% m_tag "name" %}
+          </a>
+      </h4>
       <h5><small>$.<i>{% m_tag "cuisine" %}</i></small></h5>
       <p>{% include "home/components/widgets/rating.html" %} </p>      
       {% include "home/components/widgets/review-tag-cloud.html" %}

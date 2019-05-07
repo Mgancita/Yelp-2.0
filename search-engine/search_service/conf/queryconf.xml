@@ -21,6 +21,7 @@
             <field name="t5_count"/>
             <field name="t6_count"/>
             <field name="t7_count"/>
+            <field name="topic_avg_polarity"/>
         </display>
     </searchProfile>
 </queryConf>

@@ -4,6 +4,7 @@ import os
 import xmltodict
 import pickle
 import re
+import ast
 from nltk.corpus import stopwords 
 
 root_path = os.path.dirname(os.path.abspath( __file__ ))+"/../.."
@@ -21,6 +22,7 @@ class DataImport:
         self.name=doc['@name']
         self.indexedFields=[]
         self.storedFields=[]
+        self.jsonFields=[]
         self.multivalFields=[]
         self.columnTOField={}
         self.groupFieldLabels={}
@@ -38,7 +40,11 @@ class DataImport:
             
             if '@stored' in field:
                 if field['@stored'] == "true":
-                    self.storedFields.append(field['@name'])
+                    if '@json' in field and field['@json'] == 'true':
+                        #save json fields as object in documents store
+                        self.jsonFields.append(field['@name'])
+                    else:
+                        self.storedFields.append(field['@name'])
             
             if '@primary' in field:
                 if field['@primary'] == "true":
@@ -54,7 +60,8 @@ class DataImport:
                     self.groupFieldLabels[field['@group']]={}
                 
                 self.groupFieldLabels[field['@group']][field['@name']]=field['@label']
-            
+                
+                    
 
             
             
@@ -113,7 +120,11 @@ class DataImport:
         for idx,row in enumerate(cursor):
             document={}
             for key,value in self.columnTOField.items():
-                document[value]=row[key]
+                if value in self.jsonFields:
+                    if row[key] != '':
+                        document[value]=ast.literal_eval(row[key])
+                else:
+                    document[value]=row[key]
             #map grouped field and label with matching count
             for g_key,g_value in self.groupFieldLabels.items():
                 

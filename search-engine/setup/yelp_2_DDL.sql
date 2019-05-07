@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS yelp_resturant;
 DROP TABLE IF EXISTS yelp_user;
 DROP TABLE IF EXISTS yelp_review;
+DROP TABLE IF EXISTS yelp_review_polarity;
 
 CREATE TABLE yelp_resturant(
     uid INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,4 +39,10 @@ CREATE TABLE yelp_review(
     FOREIGN KEY(user_id) REFERENCES yelp_user(user_id) ON DELETE CASCADE,
     FOREIGN KEY(resturant_id) REFERENCES yelp_resturant(resturant_id)  ON DELETE CASCADE
 );
+
+CREATE TABLE yelp_review_polarity(
+    resturant_id TEXT UNIQUE,
+    average_polarity TEXT,
+    FOREIGN KEY(resturant_id) REFERENCES yelp_resturant(resturant_id)  ON DELETE CASCADE
+ );  
 

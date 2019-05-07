@@ -31,5 +31,9 @@
     		<topic name="Variety/Order Selection" column="t7"/>
 		</topicField>
 	</table>
+	<table name="yelp_review_polarity" source="/../data/restaurant_average_polarity.csv" loadOrder="4">
+		<field name="resturant_id" column="resturant_id"/>
+		<field name="average_polarity" column="average_polarity"/>
+	</table>
 </dataloadMapper>
 

@@ -1,13 +1,5 @@
 {% load m_tag %}
 <h6>Reviews</h6>
 {% m_tag "#topic" %}
-    <span class="badge badge-primary">{% m_tag "name" %} ({% m_tag "count" %})</span>
+    <span class="badge {% m_tag "polarity_class" %}">{% m_tag "name" %} ({% m_tag "count" %})</span>
 {% m_tag "/topic" %}
-<!--<span class="badge badge-secondary">Taste(5)</span>
-    <span class="badge badge-success">Customer Satisfaction(6)</span>
-<span class="badge badge-danger">Danger</span>
-<span class="badge badge-warning">Warning</span>
-<span class="badge badge-info">Info</span>
-<span class="badge badge-light">Light</span>
-<span class="badge badge-dark">Dark</span>
- -->

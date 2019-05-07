@@ -10,6 +10,27 @@
 </form>
 
 <script type="text/javascript">
+function mapTopicAvgPolarity(topic,tAvgPol){
+    var tlength=topic.length;
+    var tavglength=tAvgPol.length;
+    for(var i=0;i<tlength;i++){
+        for(var j=0;j<tavglength;j++){
+            if(tAvgPol[j].name==topic[i].name){
+                if(tAvgPol[j].polarity < 0){
+                    topic[i].polarity_class="badge-danger";
+                }else if(tAvgPol[j].polarity <0.10){
+                    topic[i].polarity_class="badge-dark";
+                }else if(tAvgPol[j].polarity < 0.20){
+                    topic[i].polarity_class="badge-success";
+                }else{
+                    topic[i].polarity_class="badge-primary";
+                }
+            }
+        }
+    }
+    
+}
+
 function paginate(data){
 //pagination changes
             var pages=[];
@@ -90,6 +111,11 @@ function searchSubmit(){
                     rating_class[i]='checked';
                 }
                 docs[k].rating_class=rating_class;
+                
+                //map average topic polarity
+                if(typeof  docs[k].topic_avg_polarity != 'undefined'){
+                    mapTopicAvgPolarity(docs[k].topic,docs[k].topic_avg_polarity)
+                }
             }
             
             var pages=[];
@@ -97,10 +123,7 @@ function searchSubmit(){
               pages = paginate(data);          
             }
             data.pages=pages;
-            
-            
-            
-            
+
             console.log(data);
             var html = Mustache.to_html(template, data);
                 $('#search-listing').html(html);

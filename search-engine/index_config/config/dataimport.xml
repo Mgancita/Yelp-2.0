@@ -14,7 +14,8 @@
         coalesce(yt4.t4_count,0) as t4_count,
         coalesce(yt5.t5_count,0) as t5_count,
         coalesce(yt6.t6_count,0) as t6_count,
-        coalesce(yt7.t7_count,0) as t7_count
+        coalesce(yt7.t7_count,0) as t7_count,
+        yrp.average_polarity
         FROM yelp_resturant y1
         LEFT OUTER JOIN (select resturant_id,count(user_id) as t1_count from yelp_review where t1 = 1 GROUP BY resturant_id) as yt1 ON (yt1.resturant_id=y1.resturant_id)
 		LEFT OUTER JOIN (select resturant_id,count(user_id) as t2_count from yelp_review where t2 = 1 GROUP BY resturant_id) as yt2 ON (yt2.resturant_id=y1.resturant_id)
@@ -23,6 +24,7 @@
 		LEFT OUTER JOIN (select resturant_id,count(user_id) as t5_count from yelp_review where t5 = 1 GROUP BY resturant_id) as yt5 ON (yt5.resturant_id=y1.resturant_id)
 		LEFT OUTER JOIN (select resturant_id,count(user_id) as t6_count from yelp_review where t6 = 1 GROUP BY resturant_id) as yt6 ON (yt6.resturant_id=y1.resturant_id)
 		LEFT OUTER JOIN (select resturant_id,count(user_id) as t7_count from yelp_review where t7 = 1 GROUP BY resturant_id) as yt7 ON (yt7.resturant_id=y1.resturant_id)       
+		LEFT OUTER JOIN yelp_review_polarity as yrp ON (yrp.resturant_id=y1.resturant_id)
         ">    
         <field name="uid" column="uid" stored="true" primary="true"/>
         <field name="resturant_id" column="resturant_id" stored="true"/>
@@ -30,6 +32,7 @@
 		<field name="image" column="image" stored="true" />
 		<field name="rating" column="rating" stored="true"/>
 		<field name="cuisine" column="cuisine" stored="true" indexed="true" mutli-valued="true"/>
+		<field name="topic_avg_polarity" column="average_polarity" stored="true" json="true"/>
 		<field name="phone" column="phone" stored="true"/>
 		<field name="address" column="address" stored="true" indexed="true"/> 
 		<field name="t1_count" column="t1_count" group="topic" stored="true" label="Bar/Drinks"/>

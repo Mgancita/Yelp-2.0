@@ -115,10 +115,7 @@ class SearchService:
         response['pageSize'] = self.pageSize
         response['fq'] = self.fq
         response['topicFilter'] = self.facetView
-        if self.filteredCount > 0:
-            response['docs'] = self.filterdDocList
-        else:
-            response['docs'] = self.documentList
+        response['docs'] = self.documentList
         return response
         
         
@@ -187,9 +184,15 @@ class SearchService:
             ####pagination#####
             print(begin_index,end_index)
             if end_index < idx_length:
-                self.documentList = [dataRepo.documents[idx] for idx in reduced_idx_list[begin_index:end_index]]
+                if self.filteredCount > 0:
+                    self.documentList = [doc for doc in self.filterdDocList[begin_index:end_index]]
+                else:
+                    self.documentList = [dataRepo.documents[idx] for idx in reduced_idx_list[begin_index:end_index]]
             else:
-                self.documentList = [dataRepo.documents[idx] for idx in reduced_idx_list[begin_index:]]
+                if self.filteredCount > 0:
+                    self.documentList = [doc for doc in self.filterdDocList[begin_index:]]
+                else:
+                    self.documentList = [dataRepo.documents[idx] for idx in reduced_idx_list[begin_index:]]
                 
             self.totalCount = len(reduced_idx_list)
             

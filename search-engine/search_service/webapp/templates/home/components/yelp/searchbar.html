@@ -137,6 +137,10 @@ function searchSubmit(){
             });
         }
 }
+
+function pageReset(){
+    $("#inputPageNumber").val(1);
+}
 function pageSelected(pageNumber){
     $("#inputPageNumber").val(pageNumber);
     console.log($("#inputPageNumber").val())

@@ -5,7 +5,7 @@
           <tr>
               <th>Review Category
                   {% m_tag "#fq" %}
-                      <a style="float:right;" onclick="javascript:$('input[name=topic]').attr('checked',false);searchSubmit();" href="#">Clear[X]</a>
+                      <a style="float:right;" onclick="javascript:$('input[name=topic]').attr('checked',false);pageReset();searchSubmit();" href="#">Clear[X]</a>
                   {% m_tag "/fq" %}
               </th>
           </tr>
@@ -15,7 +15,7 @@
           <tr>
               <td>
                   {% m_tag "name" %} ({% m_tag "count" %})
-                  <input onclick="javascript:searchSubmit();" name="topic" value="{% m_tag "name" %}" {% m_tag "checked" %} type="radio"/>
+                  <input onclick="javascript:pageReset();searchSubmit();" name="topic" value="{% m_tag "name" %}" {% m_tag "checked" %} type="radio"/>
               </td>
             </tr>
          {% m_tag "/topicFilter" %}

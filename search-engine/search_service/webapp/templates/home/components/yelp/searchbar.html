@@ -18,12 +18,16 @@ function mapTopicAvgPolarity(topic,tAvgPol){
             if(tAvgPol[j].name==topic[i].name){
                 if(tAvgPol[j].polarity < 0){
                     topic[i].polarity_class="badge-danger";
+                    topic[i].emoji_class="em-angry";
                 }else if(tAvgPol[j].polarity <0.10){
                     topic[i].polarity_class="badge-dark";
+                    topic[i].emoji_class="em-face_with_rolling_eyes";
                 }else if(tAvgPol[j].polarity < 0.20){
                     topic[i].polarity_class="badge-success";
+                    topic[i].emoji_class="em-grinning";
                 }else{
                     topic[i].polarity_class="badge-primary";
+                    topic[i].emoji_class="em---1";
                 }
             }
         }

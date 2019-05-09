@@ -13,9 +13,11 @@ path_to_master = '/Users/asnafatimaali/Documents/GitHub/Yelp-2.0'
 
 #path_to_master = os.getcwd()
 
-lda = models.LdaModel.load(os.path.join(path_to_master, 'topic_model','model_data','lda.model'))
+lda = models.LdaModel.load(os.path.join(path_to_master, 'topic-model','model_data','lda.model'))
 
-lda.per_word_topics = True
+#the model also computes a list of topics, sorted in descending order of most likely topics for each word, 
+#along with their phi values multiplied by the feature length (i.e. word count).
+lda.per_word_topics = True 
 
 #lda.print_topics()
 
@@ -31,7 +33,7 @@ df_need = df["description"]
 
 def tokenize(review):
     
-    """ Remove white spaces, punctuations, stop words """
+    """ Remove white spaces, punctuations, and stop words """
     
     token = strip_multiple_whitespaces(strip_punctuation(review))
     return [token.split() for token in simple_preprocess(token) if token not in STOPWORDS]
@@ -46,7 +48,7 @@ def unnest(given):
 
 def topic_model (tokens):
     
-    """ create a dictionary, a document matrix, perform the uploaded lda model, and get the topics above the specified filter"""
+    """ create a dictionary, a corpus, get the topic probability distribution for each sentence from the uploaded lda model, and get the topics above the specified filter"""
     
     word2id = corpora.Dictionary(tokens)
     corpo = word2id.doc2bow(simple_preprocess(sentence))
@@ -57,7 +59,7 @@ def topic_model (tokens):
 
 def backwards (num):
     
-    """ For the words from the lda model, match the number representation to the actual word from the dictionary """
+    """ Match the number representation of the word from the lda model, to the actual word from the dictionary """
     
     for key, value in dicto.token2id.items():    
         if value == num:
@@ -66,33 +68,32 @@ def backwards (num):
 
 def duplicates(dict_word):
     
-    """ Take the word from the dictionary and match it to the tokenized sentence. Grab the indexes where the word matched """
+    """ Take the word from the dictionary and match it to the tokenized sentence. Grab the indexes where the input word matches the word in the tokenized sentence """
     
     return [i for i, x in enumerate(toke) if x == dict_word]
 
-class WordProcessing:
+
+def filtered_words(topic_ids):
     
-    def filtered_words(topic_ids):
-        
-        """ get the words(number representations) from the lda model where their first ranked topic is in the topic_ids list"""
-        
-        words = [idx[0] for idx in modified_word_ids if idx[1][0] in topic_ids]
-            
-        return words
+    """ get the words(number representations) from the lda model where their first ranked topic is in the topic_ids list"""
     
-    def word_topic (words, topics):
+    words = [idx[0] for idx in modified_word_ids if idx[1][0] in topic_ids]
         
-        """ combine the list of words(number representation) from the lda model to the their respective topics """
+    return words
+    
+def word_topic (words, topics):
+    
+    """ combine the list of words(number representation) from the lda model to the their respective topics """
+    
+    words_their_topics = dict(list(zip(words,topics))) # combine the words and their respective topic numbers together 
+    wordtop_combo = {} # initializing empty dictionary 
+    for key, value in sorted(words_their_topics.items()): # key are topic numbers and values are a list of all the number representation of the words
+        wordtop_combo.setdefault(value, []).append(key)
+    wordtop_combo = [x for x in wordtop_combo.items()] # make the above dictionary into a list (easier to use)
+    wordsnum_list = [wordlst[1] for wordlst in wordtop_combo]
+    topic_numbers = [topicnum[0] for topicnum in wordtop_combo]
         
-        words_their_topics = dict(list(zip(words,topics))) # combine the words and their respective topic numbers together 
-        wordtop_combo = {} # initializing empty dictionary 
-        for key, value in sorted(words_their_topics.items()):
-            wordtop_combo.setdefault(value, []).append(key)
-        wordtop_combo = [x for x in wordtop_combo.items()] # make the above dictionary into a list (easier to use)
-        wordsnum_list = [wordlst[1] for wordlst in wordtop_combo]
-        topic_numbers = [topicnum[0] for topicnum in wordtop_combo]
-            
-        return wordsnum_list, topic_numbers
+    return wordsnum_list, topic_numbers
 
 def sentence_from_index(word_lst):
     
@@ -138,17 +139,17 @@ for x in df_need: # reading reveiews cell by cell
                 
             if len(filtered_topics) > 1: # if there are more than one topics associated with a sentence after applying the filter
                 topic_ids = [num[0] for num in filtered_topics] # get the multiple topics
-                words = WordProcessing.filtered_words(topic_ids) # get the words associated to topics_id
+                words = filtered_words(topic_ids) # get the words associated to topics_id
                 topics = [idx[1][0] for idx in modified_word_ids if idx[1][0] in topic_ids] 
-                wordsnum_list, topic_numbers = WordProcessing.word_topic(words, topics)
+                wordsnum_list, topic_numbers = word_topic(words, topics)
                 
                 for y in range(len(wordsnum_list)):
                     polarity = sentiment(sentences_for_topics(sentence_from_index(wordsnum_list[y])))
                     topsent[topic_numbers[y]].append(polarity[0])
 
             else: # for cases where there is only one topic, after applying the filter, to the sentence
-                topic_ids = [filtered_topics[0][0]] # this is if one topic
-                words = WordProcessing.filtered_words(topic_ids) # this is if one topic 
+                topic_ids = [filtered_topics[0][0]] 
+                words = filtered_words(topic_ids)  
                 polarity = sentiment(sentences_for_topics(sentence_from_index(words)))
                 topsent[topic_ids[0]].append(polarity[0])
                     
@@ -160,9 +161,9 @@ for x in df_need: # reading reveiews cell by cell
         else:
     
             if len(value) > 0:
-                score = round(sum(value)/len(value),2)
+                score = round(sum(value)/len(value),2) # calculate the average for each review 
                 toappend[topic_names[key]] = score
-    topic_senti.append(toappend)
+    topic_senti.append(toappend) # store the dictionary to the list 
     
     #print(counter)
     #counter += 1

@@ -56,19 +56,19 @@ This page contains the steps followed during the project setup.
 	python manage.py createsuperuser --email admin@example.com --username admin  
 
 12. Create search-engine/search/urls.py  & search-engine/search/webapp/urls.py
-	1. Add below code snippet 
+	a. Add below code snippet 
 		
 		urlpatterns = [
 			path('search/', views.search_index)
 		]
 		
-	2. Add below snippet in search-engine/search/webapp/urls.py
+	b. Add below snippet in search-engine/search/webapp/urls.py
 	
 		urlpatterns = [
 			path('', views.webapp_home)
 		]
 		
-	b. update url pattern redirections in api/urls.py
+	c. update url pattern redirections in api/urls.py
 	
 		urlpatterns = [
 			path('admin/', admin.site.urls),

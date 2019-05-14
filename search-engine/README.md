@@ -19,7 +19,7 @@ This project implements the search-service and web-app module for yelp 2.0 proje
 	   when search REST service API is hit.
 		<Yelp2.0 donwload directory>\search-engine\search_service\conf\queryconf.xml
 		
-## Execution of jobs and start server.
+## Dataload, Indexing and Running Server.
 1. cd <Yelp2.0 donwload directory>
 
 2. Activate virtual environment.<br/>

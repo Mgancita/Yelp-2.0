@@ -22,16 +22,16 @@ This project implements the search engine module for yelp 2.0 project as part of
 ## Execution of jobs and start server.
 1. cd <Yelp2.0 donwload directory>
 
-2. Activate virtual environment.
+2. Activate virtual environment.<br/>
 	$.\search-engine\search_service\venv\Scripts\activation.bat
 	
-3. Load scraped and processed data from csv to database.
+3. Load scraped and processed data from csv to database.<br/>
 	$python .\search-engine\dataload\script\dataload.py
 	
-4. Build index by importing data from database.
+4. Build index by importing data from database.<br/>
 	$python .\search-engine\dataload\script\dataload.py
 	
-5. Run server.
+5. Run server.<br/>
 	$python .\search-engine\search_service\manage.py runserver
 
 	

@@ -35,4 +35,4 @@ This project implements the search-service and web-app module for yelp 2.0 proje
 	$python .\search-engine\search_service\manage.py runserver
 
 	
-Please refer PROJECT_SETUP.md for steps followed during project setup.
+Please refer [PROJECT_SETUP](https://github.com/Mgancita/Yelp-2.0/blob/master/search-engine/PROJECT_SETUP.md "PROJECT_SETUP.md") for steps followed during project setup.

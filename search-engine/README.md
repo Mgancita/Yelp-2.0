@@ -20,12 +20,12 @@ This project implements the search-service and web-app module for yelp 2.0 proje
 		<Yelp2.0 directory>\search-engine\search_service\conf\queryconf.xml
 		
 ## Dataload, Indexing and Running Server.
-1. cd <Yelp2.0 directory>\search-engine\search_service\
+1. cd <Yelp2.0 directory>\search-engine\search_service\<br/>
 
-2.Execute below DDL aginst the SQLITE database.
-	$sqlite3 db.sqlite3
-	sqlite>.read yelp_2_DDL.sql
-	Exit from sqlite prompt.
+2.Execute below DDL aginst the SQLITE database.<br/>
+	$sqlite3 db.sqlite3<br/>
+	sqlite>.read yelp_2_DDL.sql<br/>
+	Exit from sqlite prompt.<br/>
 
 3. Activate virtual environment.<br/>
 	$<Yelp2.0 directory>\search-engine\search_service\venv\Scripts\activation.bat

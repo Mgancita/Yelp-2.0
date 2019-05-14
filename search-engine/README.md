@@ -1,5 +1,5 @@
 # Search-Engine
-This project implements the search engine module for yelp 2.0 project as part of BIA-660 coursework
+This project implements the search-service and web-app module for yelp 2.0 project as part of BIA-660 coursework
 
 ## Configure dataload and index config files.
 

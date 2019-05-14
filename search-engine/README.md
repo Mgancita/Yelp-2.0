@@ -10,7 +10,7 @@ This project implements the search-service and web-app module for yelp 2.0 proje
 	2. Map csv columns to tabel columns in below file.
 		<Yelp2.0 directory>\search-engine\dataload\config\dataload.xml
 		
-### Mapping data import query from table to fields in index and search service query fields.
+### Mapping data import query from table to fields in index and search service query fields
 	1. Update the import query for any customization in below file and map the result column to neccessary field 
 	   name in index.
 		<Yelp2.0 directory>\search-engine\index_config\config\dataimport.xml

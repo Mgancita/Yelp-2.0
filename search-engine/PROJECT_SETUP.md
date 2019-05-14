@@ -55,7 +55,7 @@ This page contains the steps followed during the project setup.
 11. Execute below command with necessary user name and password  
 	python manage.py createsuperuser --email admin@example.com --username admin  
 
-12. Create search-engine/search/urls.py  & search-engine/search/webapp/urls.py
+12. Create search-engine/search/urls.py  & search-engine/search/webapp/urls.py<br/>
 	a. Add below code snippet 
 		
 		urlpatterns = [

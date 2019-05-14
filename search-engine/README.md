@@ -20,10 +20,10 @@ This project implements the search-service and web-app module for yelp 2.0 proje
 		<Yelp2.0 directory>\search-engine\search_service\conf\queryconf.xml
 		
 ## Dataload, Indexing and Running Server.
-1. cd <Yelp2.0 directory>\search-engine\search_service\
+1. cd <Yelp2.0 directory>\search-engine\search_service\setup\
 
 2. Execute below DDL against the SQLITE database.<br/>
-	$sqlite3 db.sqlite3<br/>
+	$sqlite3 ..\db.sqlite3<br/>
 	sqlite>.read yelp_2_DDL.sql<br/>
 	Exit from sqlite prompt.
 

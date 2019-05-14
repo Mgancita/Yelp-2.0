@@ -35,3 +35,4 @@ This project implements the search engine module for yelp 2.0 project as part of
 	$python .\search-engine\search_service\manage.py runserver
 
 	
+Please refer PROJECT_SETUP.md for steps followed during project setup.
